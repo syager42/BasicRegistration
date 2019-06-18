@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RegistrationModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="RegistrationModelStoreContainer">
+    <EntitySet Name="Registrations" EntityType="RegistrationModel.Store.Registrations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Students" EntityType="RegistrationModel.Store.Students" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Classes" EntityType="RegistrationModel.Store.Classes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Waitlists" EntityType="RegistrationModel.Store.Waitlists" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClassesRegistration" Association="RegistrationModel.Store.ClassesRegistration">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Registration" EntitySet="Registrations" />
+    </AssociationSet>
+    <AssociationSet Name="StudentsRegistration" Association="RegistrationModel.Store.StudentsRegistration">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Registration" EntitySet="Registrations" />
+    </AssociationSet>
+    <AssociationSet Name="ClassesWaitlist" Association="RegistrationModel.Store.ClassesWaitlist">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Waitlist" EntitySet="Waitlists" />
+    </AssociationSet>
+    <AssociationSet Name="StudentsWaitlist" Association="RegistrationModel.Store.StudentsWaitlist">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Waitlist" EntitySet="Waitlists" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Registrations">
+    <Key>
+      <PropertyRef Name="RegisterID" />
+    </Key>
+    <Property Name="RegisterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClassID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RegisterDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Class_ClassID" Type="int" Nullable="false" />
+    <Property Name="Student_StudentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Classes">
+    <Key>
+      <PropertyRef Name="ClassID" />
+    </Key>
+    <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Capacity" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Waitlists">
+    <Key>
+      <PropertyRef Name="WaitlistID" />
+    </Key>
+    <Property Name="WaitlistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClassID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Class_ClassID" Type="int" Nullable="false" />
+    <Property Name="Student_StudentID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClassesRegistration">
+    <End Role="Classes" Type="RegistrationModel.Store.Classes" Multiplicity="1" />
+    <End Role="Registration" Type="RegistrationModel.Store.Registrations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classes">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="Class_ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentsRegistration">
+    <End Role="Students" Type="RegistrationModel.Store.Students" Multiplicity="1" />
+    <End Role="Registration" Type="RegistrationModel.Store.Registrations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="Student_StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClassesWaitlist">
+    <End Role="Classes" Type="RegistrationModel.Store.Classes" Multiplicity="1" />
+    <End Role="Waitlist" Type="RegistrationModel.Store.Waitlists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classes">
+        <PropertyRef Name="ClassID" />
+      </Principal>
+      <Dependent Role="Waitlist">
+        <PropertyRef Name="Class_ClassID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentsWaitlist">
+    <End Role="Students" Type="RegistrationModel.Store.Students" Multiplicity="1" />
+    <End Role="Waitlist" Type="RegistrationModel.Store.Waitlists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="Waitlist">
+        <PropertyRef Name="Student_StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="RegistrationModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="RegistrationModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Registrations" EntityType="RegistrationModel.Registration" />
+          <EntitySet Name="Students" EntityType="RegistrationModel.Students" />
+          <EntitySet Name="Classes" EntityType="RegistrationModel.Classes" />
+          <EntitySet Name="Waitlists" EntityType="RegistrationModel.Waitlist" />
+          <AssociationSet Name="ClassesRegistration" Association="RegistrationModel.ClassesRegistration">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Registration" EntitySet="Registrations" />
+          </AssociationSet>
+          <AssociationSet Name="StudentsRegistration" Association="RegistrationModel.StudentsRegistration">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Registration" EntitySet="Registrations" />
+          </AssociationSet>
+          <AssociationSet Name="ClassesWaitlist" Association="RegistrationModel.ClassesWaitlist">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Waitlist" EntitySet="Waitlists" />
+          </AssociationSet>
+          <AssociationSet Name="StudentsWaitlist" Association="RegistrationModel.StudentsWaitlist">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Waitlist" EntitySet="Waitlists" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="RegisterID" />
+          </Key>
+          <Property Name="RegisterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="String" Nullable="false" />
+          <Property Name="ClassID" Type="String" Nullable="false" />
+          <Property Name="RegisterDate" Type="String" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="RegistrationModel.ClassesRegistration" FromRole="Registration" ToRole="Classes" />
+          <NavigationProperty Name="Student" Relationship="RegistrationModel.StudentsRegistration" FromRole="Registration" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" />
+          <NavigationProperty Name="Registrations" Relationship="RegistrationModel.StudentsRegistration" FromRole="Students" ToRole="Registration" />
+          <NavigationProperty Name="Waitlists" Relationship="RegistrationModel.StudentsWaitlist" FromRole="Students" ToRole="Waitlist" />
+        </EntityType>
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" Nullable="false" />
+          <Property Name="Capacity" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Registrations" Relationship="RegistrationModel.ClassesRegistration" FromRole="Classes" ToRole="Registration" />
+          <NavigationProperty Name="Waitlists" Relationship="RegistrationModel.ClassesWaitlist" FromRole="Classes" ToRole="Waitlist" />
+        </EntityType>
+        <EntityType Name="Waitlist">
+          <Key>
+            <PropertyRef Name="WaitlistID" />
+          </Key>
+          <Property Name="WaitlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="String" Nullable="false" />
+          <Property Name="ClassID" Type="String" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="RegistrationModel.ClassesWaitlist" FromRole="Waitlist" ToRole="Classes" />
+          <NavigationProperty Name="Student" Relationship="RegistrationModel.StudentsWaitlist" FromRole="Waitlist" ToRole="Students" />
+        </EntityType>
+        <Association Name="ClassesRegistration">
+          <End Type="RegistrationModel.Classes" Role="Classes" Multiplicity="1" />
+          <End Type="RegistrationModel.Registration" Role="Registration" Multiplicity="*" />
+        </Association>
+        <Association Name="StudentsRegistration">
+          <End Type="RegistrationModel.Students" Role="Students" Multiplicity="1" />
+          <End Type="RegistrationModel.Registration" Role="Registration" Multiplicity="*" />
+        </Association>
+        <Association Name="ClassesWaitlist">
+          <End Type="RegistrationModel.Classes" Role="Classes" Multiplicity="1" />
+          <End Type="RegistrationModel.Waitlist" Role="Waitlist" Multiplicity="*" />
+        </Association>
+        <Association Name="StudentsWaitlist">
+          <End Type="RegistrationModel.Students" Role="Students" Multiplicity="1" />
+          <End Type="RegistrationModel.Waitlist" Role="Waitlist" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RegistrationModelStoreContainer" CdmEntityContainer="RegistrationModelContainer">
+    <EntitySetMapping Name="Registrations">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Registration)">
+        <MappingFragment StoreEntitySet="Registrations">
+          <ScalarProperty Name="RegisterID" ColumnName="RegisterID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Students)">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Classes)">
+        <MappingFragment StoreEntitySet="Classes">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Waitlists">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Waitlist)">
+        <MappingFragment StoreEntitySet="Waitlists">
+          <ScalarProperty Name="WaitlistID" ColumnName="WaitlistID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ClassesRegistration" TypeName="RegistrationModel.ClassesRegistration" StoreEntitySet="Registrations">
+      <EndProperty Name="Classes">
+        <ScalarProperty Name="ClassID" ColumnName="Class_ClassID" />
+      </EndProperty>
+      <EndProperty Name="Registration">
+        <ScalarProperty Name="RegisterID" ColumnName="RegisterID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentsRegistration" TypeName="RegistrationModel.StudentsRegistration" StoreEntitySet="Registrations">
+      <EndProperty Name="Students">
+        <ScalarProperty Name="StudentID" ColumnName="Student_StudentID" />
+      </EndProperty>
+      <EndProperty Name="Registration">
+        <ScalarProperty Name="RegisterID" ColumnName="RegisterID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClassesWaitlist" TypeName="RegistrationModel.ClassesWaitlist" StoreEntitySet="Waitlists">
+      <EndProperty Name="Classes">
+        <ScalarProperty Name="ClassID" ColumnName="Class_ClassID" />
+      </EndProperty>
+      <EndProperty Name="Waitlist">
+        <ScalarProperty Name="WaitlistID" ColumnName="WaitlistID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentsWaitlist" TypeName="RegistrationModel.StudentsWaitlist" StoreEntitySet="Waitlists">
+      <EndProperty Name="Students">
+        <ScalarProperty Name="StudentID" ColumnName="Student_StudentID" />
+      </EndProperty>
+      <EndProperty Name="Waitlist">
+        <ScalarProperty Name="WaitlistID" ColumnName="WaitlistID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="RegistrationModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="RegistrationModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Registrations" EntityType="RegistrationModel.Registration" />
+    <EntitySet Name="Students" EntityType="RegistrationModel.Students" />
+    <EntitySet Name="Classes" EntityType="RegistrationModel.Classes" />
+    <EntitySet Name="Waitlists" EntityType="RegistrationModel.Waitlist" />
+    <AssociationSet Name="ClassesRegistration" Association="RegistrationModel.ClassesRegistration">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Registration" EntitySet="Registrations" />
+    </AssociationSet>
+    <AssociationSet Name="StudentsRegistration" Association="RegistrationModel.StudentsRegistration">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Registration" EntitySet="Registrations" />
+    </AssociationSet>
+    <AssociationSet Name="ClassesWaitlist" Association="RegistrationModel.ClassesWaitlist">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Waitlist" EntitySet="Waitlists" />
+    </AssociationSet>
+    <AssociationSet Name="StudentsWaitlist" Association="RegistrationModel.StudentsWaitlist">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Waitlist" EntitySet="Waitlists" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="RegisterID" />
+    </Key>
+    <Property Name="RegisterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentID" Type="String" Nullable="false" />
+    <Property Name="ClassID" Type="String" Nullable="false" />
+    <Property Name="RegisterDate" Type="String" Nullable="false" />
+    <NavigationProperty Name="Class" Relationship="RegistrationModel.ClassesRegistration" FromRole="Registration" ToRole="Classes" />
+    <NavigationProperty Name="Student" Relationship="RegistrationModel.StudentsRegistration" FromRole="Registration" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <NavigationProperty Name="Registrations" Relationship="RegistrationModel.StudentsRegistration" FromRole="Students" ToRole="Registration" />
+    <NavigationProperty Name="Waitlists" Relationship="RegistrationModel.StudentsWaitlist" FromRole="Students" ToRole="Waitlist" />
+  </EntityType>
+  <EntityType Name="Classes">
+    <Key>
+      <PropertyRef Name="ClassID" />
+    </Key>
+    <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassName" Type="String" Nullable="false" />
+    <Property Name="Capacity" Type="String" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <NavigationProperty Name="Registrations" Relationship="RegistrationModel.ClassesRegistration" FromRole="Classes" ToRole="Registration" />
+    <NavigationProperty Name="Waitlists" Relationship="RegistrationModel.ClassesWaitlist" FromRole="Classes" ToRole="Waitlist" />
+  </EntityType>
+  <EntityType Name="Waitlist">
+    <Key>
+      <PropertyRef Name="WaitlistID" />
+    </Key>
+    <Property Name="WaitlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentID" Type="String" Nullable="false" />
+    <Property Name="ClassID" Type="String" Nullable="false" />
+    <NavigationProperty Name="Class" Relationship="RegistrationModel.ClassesWaitlist" FromRole="Waitlist" ToRole="Classes" />
+    <NavigationProperty Name="Student" Relationship="RegistrationModel.StudentsWaitlist" FromRole="Waitlist" ToRole="Students" />
+  </EntityType>
+  <Association Name="ClassesRegistration">
+    <End Type="RegistrationModel.Classes" Role="Classes" Multiplicity="1" />
+    <End Type="RegistrationModel.Registration" Role="Registration" Multiplicity="*" />
+  </Association>
+  <Association Name="StudentsRegistration">
+    <End Type="RegistrationModel.Students" Role="Students" Multiplicity="1" />
+    <End Type="RegistrationModel.Registration" Role="Registration" Multiplicity="*" />
+  </Association>
+  <Association Name="ClassesWaitlist">
+    <End Type="RegistrationModel.Classes" Role="Classes" Multiplicity="1" />
+    <End Type="RegistrationModel.Waitlist" Role="Waitlist" Multiplicity="*" />
+  </Association>
+  <Association Name="StudentsWaitlist">
+    <End Type="RegistrationModel.Students" Role="Students" Multiplicity="1" />
+    <End Type="RegistrationModel.Waitlist" Role="Waitlist" Multiplicity="*" />
+  </Association>
+</Schema>

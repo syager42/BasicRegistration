@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RegistrationModelStoreContainer" CdmEntityContainer="RegistrationModelContainer">
+    <EntitySetMapping Name="Registrations">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Registration)">
+        <MappingFragment StoreEntitySet="Registrations">
+          <ScalarProperty Name="RegisterID" ColumnName="RegisterID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Students)">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Classes)">
+        <MappingFragment StoreEntitySet="Classes">
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Waitlists">
+      <EntityTypeMapping TypeName="IsTypeOf(RegistrationModel.Waitlist)">
+        <MappingFragment StoreEntitySet="Waitlists">
+          <ScalarProperty Name="WaitlistID" ColumnName="WaitlistID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ClassesRegistration" TypeName="RegistrationModel.ClassesRegistration" StoreEntitySet="Registrations">
+      <EndProperty Name="Classes">
+        <ScalarProperty Name="ClassID" ColumnName="Class_ClassID" />
+      </EndProperty>
+      <EndProperty Name="Registration">
+        <ScalarProperty Name="RegisterID" ColumnName="RegisterID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentsRegistration" TypeName="RegistrationModel.StudentsRegistration" StoreEntitySet="Registrations">
+      <EndProperty Name="Students">
+        <ScalarProperty Name="StudentID" ColumnName="Student_StudentID" />
+      </EndProperty>
+      <EndProperty Name="Registration">
+        <ScalarProperty Name="RegisterID" ColumnName="RegisterID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClassesWaitlist" TypeName="RegistrationModel.ClassesWaitlist" StoreEntitySet="Waitlists">
+      <EndProperty Name="Classes">
+        <ScalarProperty Name="ClassID" ColumnName="Class_ClassID" />
+      </EndProperty>
+      <EndProperty Name="Waitlist">
+        <ScalarProperty Name="WaitlistID" ColumnName="WaitlistID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudentsWaitlist" TypeName="RegistrationModel.StudentsWaitlist" StoreEntitySet="Waitlists">
+      <EndProperty Name="Students">
+        <ScalarProperty Name="StudentID" ColumnName="Student_StudentID" />
+      </EndProperty>
+      <EndProperty Name="Waitlist">
+        <ScalarProperty Name="WaitlistID" ColumnName="WaitlistID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
